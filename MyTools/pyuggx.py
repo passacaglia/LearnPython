@@ -28,7 +28,7 @@ def close():
 
 	
 def go():
-	hint = '请输入拼音\n > '
+	hint = 'Please input pinyin n > '
 	sea = raw_input(hint)
 	#sea = sea.lower()
 
@@ -63,7 +63,7 @@ def saveToFile(args):
 while (True):
 	myval = go()
 	saveToFile(myval)
-	ex = raw_input("\nPress Enter to go on.")
+	#ex = raw_input("\nPress Enter to go on.")
 
 
 
