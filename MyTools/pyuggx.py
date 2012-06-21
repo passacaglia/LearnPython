@@ -15,7 +15,12 @@ def connect():
 
 
 def query(val):
-	sql = "select * from pinyinuggx where pinyin = '" + val + "' or cc = '" + val + "' order by uggx"
+	if len(val) == 1:
+		sql = "select * from pinyinuggx where pinyin = '" + val[0] + "' or cc = '" + val[0] + "' order by uggx"
+	elif len(val) == 2:
+		#第一个字母是val[1]的。
+		sql = "select * from pinyinuggx where pinyin = '" + val[0] + "' and uggx like '" + val[1] + "%' order by uggx"
+		print (sql)
 	cur.execute(sql)
 	
 	res = cur.fetchall()
@@ -31,7 +36,8 @@ def go():
 	hint = 'Please input pinyin n > '
 	sea = raw_input(hint)
 	#sea = sea.lower()
-
+	sea = sea.split()
+	
 	connect()
 
 	res = query(sea)
@@ -43,7 +49,7 @@ def go():
 		finalstr = finalstr + "\n" + r[2] + "  " + r[1] + "  " + r[3]
 		
 	if ("" == finalstr):
-		finalstr = "Sorry, no '" + sea + "' found!\nWe might not have this in our database.\n"
+		finalstr = "Sorry, no '" + str(sea) + "' found!\nWe might not have this in our database.\n"
 	
 	print (finalstr)
 	finalstr = unicode(finalstr)
